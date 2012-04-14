@@ -2,4 +2,4 @@ all:
 	javac MemorySimulator.java
 
 clean:
-	rm -f MemorySimulator.class
+	rm -f *.class
