@@ -1,11 +1,13 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class MemorySimulator extends Externals {
 	private char[] main_memory;
+	private ArrayList<Process> processes;
 	
 	public MemorySimulator(String fileName) {
 		main_memory = new char[ MAIN_MEMORY_SIZE ];
-		InputFileParser.parseInputFile( fileName );
+		processes = InputFileParser.parseInputFile( fileName );
 	}
 
 	public static void main( String[] args ) {
