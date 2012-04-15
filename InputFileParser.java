@@ -32,7 +32,7 @@ public class InputFileParser {
 		}
 		
 		String pid = lineParts[0];
-		String mem = lineParts[1];
+		int memSize = Integer.parseInt(lineParts[1]);
 
 		int[] processEntries = new int[ (lineParts.length-2) / 2 ];
 		int[] processExits = new int[ (lineParts.length-2) / 2 ];
@@ -48,7 +48,7 @@ public class InputFileParser {
 			}
 		}
 
-		Process newProcess = new Process( pid, mem, processEntries, processExits );
+		Process newProcess = new Process( pid, memSize, processEntries, processExits );
 		return newProcess;
 	}
 

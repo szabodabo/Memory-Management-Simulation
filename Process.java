@@ -1,13 +1,13 @@
 
 public class Process {
 	private String pid;
-	private String memory;
+	private int size;
 	private int[] start_times;
 	private int[] end_times;
 
-	public Process(String pid, String memory, int[] start_times, int[] end_times) {
-		this.pid 		= pid;
-		this.memory 		= memory;
+	public Process(String pid, int size, int[] start_times, int[] end_times) {
+		this.pid 			= pid;
+		this.size 			= size;
 		this.start_times 	= start_times;
 		this.end_times 		= end_times;
 	}
@@ -16,8 +16,8 @@ public class Process {
 		return pid;
 	}
 
-	public String getMemory() {
-		return memory;
+	public int getSize() {
+		return size;
 	}
 
 	public int getStartTime(int processNum) {
