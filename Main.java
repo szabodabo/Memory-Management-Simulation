@@ -11,11 +11,13 @@ public class Main {
 		if ( simName.equals("first") ) {
 			sim = new FirstFitMemorySimulator( args[0] );
 		} else if ( simName.equals("best") ) {
-			//TODO
+			sim = new BestFitMemorySimulator( args[0] );
 		} else if ( simName.equals("next") ) {
-			//TODO
+			sim = new NextFitMemorySimulator( args[0] );
 		} else if ( simName.equals("worst") ) {
-			//TODO
+			sim = new WorstFitMemorySimulator( args[0] );
+		} else if ( simName.equals("noncontig") ) {
+			sim = new NonContiguousMemorySimulator( args[0] );
 		} else {
 			Externals.invalidUsageExit();
 		}

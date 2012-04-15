@@ -10,7 +10,7 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 		int block_size 	= 0;
 
 		for (int i = 0; i < main_memory.length-slotSize; i++) {
-			if(main_memory[i] == '.')
+			if(main_memory[i] == FREE_MEMORY)
 				block_size++;
 			else
 			{
