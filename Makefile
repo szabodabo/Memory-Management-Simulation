@@ -1,5 +1,5 @@
 all: clean
-	javac MemorySimulator.java
+	javac Main.java
 
 clean:
 	rm -f *.class

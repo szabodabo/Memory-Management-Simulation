@@ -35,7 +35,7 @@ public class InputFileParser {
 			System.exit(1);
 		}
 		
-		String pid = lineParts[0];
+		char pid = lineParts[0].charAt(0);
 		int memSize = Integer.parseInt(lineParts[1]);
 
 		for (int i = 2; i < lineParts.length; i += 2) {
