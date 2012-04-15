@@ -21,10 +21,10 @@ public class Process {
 	}
 
 	public int getStartTime(int processNum) {
-		return start_times[processNum]
+		return start_times[processNum];
 	}
 	
 	public int getEndTime(int processNum) {
-		return end_times[processNum]
+		return end_times[processNum];
 	}
 }
