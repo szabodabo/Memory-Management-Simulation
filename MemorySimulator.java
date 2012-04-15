@@ -51,5 +51,6 @@ public class MemorySimulator extends Externals {
 			}
 			System.out.print( main_memory[i] );
 		}
+		System.out.println();
 	}
 }
