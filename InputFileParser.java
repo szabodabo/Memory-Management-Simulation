@@ -37,11 +37,11 @@ public class InputFileParser {
 		int[] processEntries = new int[ (lineParts.length-2) / 2 ];
 		int[] processExits = new int[ (lineParts.length-2) / 2 ];
 		for (int i = 2; i < lineParts.length; i += 2) {
-			processEntries[i/2] = Integer.parseInt( lineParts[i] );
-			processExits[i/2] = Integer.parseInt( lineParts[i+1] );
+			processEntries[(i/2)-1] = Integer.parseInt( lineParts[i] );
+			processExits[(i/2)-1] = Integer.parseInt( lineParts[i+1] );
 
 			//Also, times must be strictly increasing
-			if ( processEntries[i] > processExits[i] ) {
+			if ( processEntries[(i/2)-1] > processExits[(i/2)-1] ) {
 				//Time wasn't strictly increasing
 				System.err.println("Times not strictly increasing on line '" + line + "'");
 				System.exit(1);
