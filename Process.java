@@ -2,12 +2,14 @@
 public class Process {
 	private String pid;
 	private String memory;
-	private int[] times;
+	private int[] start_times;
+	private int[] end_times;
 
-	public Process(String new_pid, String new_mem, int[] new_times) {
-		pid = new_pid;
-		memory = new_mem;
-		times	= new_times;
+	public Process(String pid, String memory, int[] start_times, int[] end_times) {
+		this.pid 		= pid;
+		this.memory 		= memory;
+		this.start_times 	= start_times;
+		this.end_times 		= end_times;
 	}
 
 	public String getPid() {
@@ -16,5 +18,13 @@ public class Process {
 
 	public String getMemory() {
 		return memory;
+	}
+
+	public int getStartTime(int processNum) {
+		return start_times[processNum]
+	}
+	
+	public int getEndTime(int processNum) {
+		return end_times[processNum]
 	}
 }
