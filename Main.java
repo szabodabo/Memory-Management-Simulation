@@ -21,9 +21,16 @@ public class Main {
 		} else {
 			Externals.invalidUsageExit();
 		}
+		
+		while (true) {
+			sim.printMemory();
+			sim.timeStep();
+			sim.printMemory();
+			break;
+		}
 
 		
 		System.out.println("Very goode");
-		sim.printMemory();
+		
 	}
 }

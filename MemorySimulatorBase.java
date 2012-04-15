@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public abstract class MemorySimulatorBase {
 	public static final char FREE_MEMORY = '.';
 	public static final char RESERVED_MEMORY = '#';
+	public int CURRENT_TIME = 0;
 	
 	protected char[] main_memory;
 	protected ArrayList<Process> processes;
@@ -11,10 +12,23 @@ public abstract class MemorySimulatorBase {
 		main_memory = new char[ Externals.MAIN_MEMORY_SIZE ];
 		processes = InputFileParser.parseInputFile( fileName );
 		initializeMainMemory();
-		System.out.println("The next available slot of size 5 is at location " + getNextSlot(5));
+		for (Process p : processes) {
+			System.out.println("Process " + p.getPid() + " (size " + p.getSize() + ")");
+			System.out.println("  Start Time: " + p.getStartTime());
+			System.out.println("  End Time: " + p.getEndTime());
+		}
 	}
 	
 	protected abstract int getNextSlot(int slotSize);
+	
+	public void timeStep() {
+		for (Process p : processes) {
+			if (p.getStartTime() == CURRENT_TIME) {
+				System.out.println("Adding process " + p.getPid());
+				putInMemory(p);
+			}
+		}
+	}
 	
 	protected void putInMemory(Process p) {
 		int targetSlot = getNextSlot(p.getSize());
@@ -25,9 +39,10 @@ public abstract class MemorySimulatorBase {
 				Externals.outOfMemoryExit();
 			}
 		}
+		System.out.println("Got a target slot of " + targetSlot + " for pid " + p.getPid());
 		//If we get here, we know that there's an open chunk
-		for (int i = targetSlot; i < p.getSize(); i++) {
-			main_memory[i] = p.getPid();
+		for (int i = 0; i < p.getSize(); i++) {
+			main_memory[i+targetSlot] = p.getPid();
 		}
 	}
 
@@ -51,6 +66,7 @@ public abstract class MemorySimulatorBase {
 	}
 	
 	private void defragment() {
+		System.out.println("Defrag started!");
 		int destination = 0;
 		for (int i = 0; i < main_memory.length; i++) {
 			if (main_memory[i] != FREE_MEMORY 
