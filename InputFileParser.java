@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 
+//#*$*#*Q(@ #($(# @(#( 39#($($(00-
 public class InputFileParser {
 	private static final boolean INPUT_DEBUG = true;
 
