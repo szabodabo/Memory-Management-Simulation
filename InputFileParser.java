@@ -10,7 +10,10 @@ public class InputFileParser {
 			BufferedReader br = new BufferedReader(new FileReader(fileName));	
 			String line = br.readLine(); //First line is number of processes... throw it out
 			while ( (line = br.readLine()) != null) {
-				processList.add( parseInputLine(line) );
+				ArrayList<Process> processesInLine = parseInputLine(line);
+				for (Process p : processesInLine) {
+					processList.add( p );
+				}
 			}
 		} catch (IOException ioe) {
 			System.err.println("Couldn't read input file '" + fileName + "'");
@@ -19,7 +22,8 @@ public class InputFileParser {
 		return processList;
 	}
 
-	private static Process parseInputLine(String line) {
+	private static ArrayList<Process> parseInputLine(String line) {
+		ArrayList<Process> processesToReturn = new ArrayList<Process>();
 		debugPrint("Got line " + line);
 		String[] lineParts = line.split("\\s");
 		debugPrintln(" (" + lineParts.length + ")");
@@ -34,22 +38,20 @@ public class InputFileParser {
 		String pid = lineParts[0];
 		int memSize = Integer.parseInt(lineParts[1]);
 
-		int[] processEntries = new int[ (lineParts.length-2) / 2 ];
-		int[] processExits = new int[ (lineParts.length-2) / 2 ];
 		for (int i = 2; i < lineParts.length; i += 2) {
-			processEntries[(i/2)-1] = Integer.parseInt( lineParts[i] );
-			processExits[(i/2)-1] = Integer.parseInt( lineParts[i+1] );
+			int start = Integer.parseInt( lineParts[i] );
+			int end = Integer.parseInt( lineParts[i+1] );
 
 			//Also, times must be strictly increasing
-			if ( processEntries[(i/2)-1] > processExits[(i/2)-1] ) {
+			if ( start > end ) {
 				//Time wasn't strictly increasing
 				System.err.println("Times not strictly increasing on line '" + line + "'");
 				System.exit(1);
 			}
+			processesToReturn.add( new Process(pid, memSize, start, end) );
 		}
 
-		Process newProcess = new Process( pid, memSize, processEntries, processExits );
-		return newProcess;
+		return processesToReturn;
 	}
 
 	private static void debugPrint(String toPrint) {
