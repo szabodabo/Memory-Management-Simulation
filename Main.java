@@ -5,8 +5,8 @@ public class Main {
 			Externals.invalidUsageExit();
 		}
 
-		//MemorySimulator sim = new MemorySimulator( args[0] );
+		MemorySimulatorBase sim = new FirstFitMemorySimulator( args[0] );
 		System.out.println("Very goode");
-		//sim.printMemory();
+		sim.printMemory();
 	}
 }

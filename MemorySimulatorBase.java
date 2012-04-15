@@ -1,16 +1,17 @@
 import java.util.ArrayList;
 
 public abstract class MemorySimulatorBase {
-	private char[] main_memory;
-	private ArrayList<Process> processes;
+	protected char[] main_memory;
+	protected ArrayList<Process> processes;
 	
 	public MemorySimulatorBase(String fileName) {
 		main_memory = new char[ Externals.MAIN_MEMORY_SIZE ];
 		processes = InputFileParser.parseInputFile( fileName );
 		initializeMainMemory();
+		System.out.println("The next available slot of size 5 is at location " + getNextSlot(5));
 	}
 	
-	public abstract int getAvailableSlot(int slotSize);
+	public abstract int getNextSlot(int slotSize);
 
 	public void runSimFunction(String simName) {
 		if ( simName.equals("first") ) {
