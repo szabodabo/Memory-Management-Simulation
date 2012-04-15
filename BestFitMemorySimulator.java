@@ -1,10 +1,14 @@
 
+
 public class BestFitMemorySimulator extends MemorySimulatorBase {
 	public BestFitMemorySimulator(String filename) {
 		super(filename);
 	}
 
 	public int getNextSlot(int slotSize) {
+		
+		/* This one is Noah's problem */
+		
 		int best_size 	= -1;
 		int best_start 	= -1;	
 		int block_size 	= 0;
