@@ -34,19 +34,21 @@ public class InputFileParser {
 		String pid = lineParts[0];
 		String mem = lineParts[1];
 
-		int[] processTimes = new int[ lineParts.length-2 ];
-		for (int i = 2; i < lineParts.length; i++) {
-			processTimes[i-2] = Integer.parseInt( lineParts[i] );
+		int[] processEntries = new int[ (lineParts.length-2) / 2 ];
+		int[] processExits = new int[ (lineParts.length-2) / 2 ];
+		for (int i = 2; i < lineParts.length; i += 2) {
+			processEntries[i/2] = Integer.parseInt( lineParts[i] );
+			processExits[i/2] = Integer.parseInt( lineParts[i+1] );
 
 			//Also, times must be strictly increasing
-			if (i-2 > 0 && processTimes[i-3] > processTimes[i-2]) {
+			if ( processEntries[i] > processExits[i] ) {
 				//Time wasn't strictly increasing
 				System.err.println("Times not strictly increasing on line '" + line + "'");
 				System.exit(1);
 			}
 		}
 
-		Process newProcess = new Process( pid, mem, processTimes );
+		Process newProcess = new Process( pid, mem, processEntries, processExits );
 		return newProcess;
 	}
 

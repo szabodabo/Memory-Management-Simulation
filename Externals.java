@@ -1,4 +1,4 @@
-public abstract class Externals {
+public class Externals {
 	public static final int MAIN_MEMORY_SIZE = 2400;
 
 	public static void invalidUsageExit() {
