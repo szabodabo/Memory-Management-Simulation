@@ -4,7 +4,7 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 		super(filename);
 	}
 
-	public int getNextSlot(int slotsize) {
+	public int getNextSlot(int slotSize) {
 		int best_size 	= -1;
 		int best_start 	= -1;	
 		int block_size 	= 0;
@@ -14,7 +14,7 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 				block_size++;
 			else
 			{
-				if(block_size >= slotsize && block_size - slotsize < best_size - slotsize || best_size == -1)
+				if(block_size >= slotSize && block_size - slotSize < best_size - slotSize || best_size == -1)
 				{
 					best_start 	= i - block_size;
 					best_size 	= block_size;
