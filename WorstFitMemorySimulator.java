@@ -3,7 +3,6 @@ public class WorstFitMemorySimulator extends MemorySimulatorBase {
 
 	public WorstFitMemorySimulator(String fileName) {
 		super(fileName);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

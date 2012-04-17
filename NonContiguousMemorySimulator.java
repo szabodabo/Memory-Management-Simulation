@@ -3,7 +3,6 @@ public class NonContiguousMemorySimulator extends MemorySimulatorBase {
 
 	public NonContiguousMemorySimulator(String fileName) {
 		super(fileName);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
