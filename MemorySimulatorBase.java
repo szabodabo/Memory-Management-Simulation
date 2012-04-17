@@ -97,6 +97,7 @@ public abstract class MemorySimulatorBase {
 	}
 
 	public void printMemory() {
+		//TODO: Make like Goldilocks's Example
 		for (int i = 0; i < main_memory.length; i++) {
 			if (i % 80 == 0) {
 				debugPrintln("");
