@@ -45,6 +45,5 @@ public class Main {
 		}
 		
 		System.out.println("No more events to process... exiting!");
-		
 	}
 }
