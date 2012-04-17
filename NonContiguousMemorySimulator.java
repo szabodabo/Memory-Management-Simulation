@@ -14,7 +14,16 @@ public class NonContiguousMemorySimulator extends MemorySimulatorBase {
 	
 	@Override
 	protected void putInMemory(Process p) {
-		
+		int remainingToPlace = p.getSize();
+		for (int i = 0; i < main_memory.length && remainingToPlace > 0; i++) {
+			if (main_memory[i] == FREE_MEMORY) {
+				main_memory[i] = p.getPid();
+				remainingToPlace--;
+			}
+		}
+		if (remainingToPlace > 0) {
+			Externals.outOfMemoryExit();
+		}
 	}
 
 }
