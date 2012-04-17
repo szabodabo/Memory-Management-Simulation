@@ -9,6 +9,7 @@ public class WorstFitMemorySimulator extends MemorySimulatorBase {
 	@Override
 	protected int getNextSlot(int slotSize) {
 		// TODO Auto-generated method stub
+		//TODO: Noah
 		return 0;
 	}
 

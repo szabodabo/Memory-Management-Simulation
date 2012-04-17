@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class InputFileParser {
 	private static final boolean INPUT_DEBUG = true;
@@ -19,6 +20,8 @@ public class InputFileParser {
 			System.err.println("Couldn't read input file '" + fileName + "'");
 			System.exit(1);
 		}
+		
+		Collections.sort(processList);
 		return processList;
 	}
 

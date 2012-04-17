@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class Main {
 	public static void main( String[] args ) {
@@ -5,8 +6,10 @@ public class Main {
 			Externals.invalidUsageExit();
 		}
 		
-		String simName = args[1];
+		String simName = args[1].trim();
 		MemorySimulatorBase sim = null;
+		Scanner scanner = new Scanner(System.in);
+		String userInput = "";
 		
 		if ( simName.equals("first") ) {
 			sim = new FirstFitMemorySimulator( args[0] );
@@ -22,15 +25,26 @@ public class Main {
 			Externals.invalidUsageExit();
 		}
 		
-		while (true) {
-			sim.printMemory();
+		while (sim.processesRemaining() > 0) {
+			userInput = "";
+			while (!(userInput.equals("c") || userInput.equals("q"))) {
+				System.out.print("memsim> ");
+				userInput = scanner.next();
+				if (userInput.equals("c")) {
+					//Continue the simulation
+					break;
+				} else if (userInput.equals("q")) {
+					System.exit(0);
+				} else {
+					System.out.println("Enter 'c' to continue or 'q' to quit.");
+				}
+			}
+			
 			sim.timeStep();
 			sim.printMemory();
-			break;
 		}
-
 		
-		System.out.println("Very goode");
+		System.out.println("No more events to process... exiting!");
 		
 	}
 }

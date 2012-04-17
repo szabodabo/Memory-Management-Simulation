@@ -8,8 +8,13 @@ public class NonContiguousMemorySimulator extends MemorySimulatorBase {
 
 	@Override
 	protected int getNextSlot(int slotSize) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new IllegalArgumentException("This method isn't relevant " +
+				"for this memory allocation strategy");
+	}
+	
+	@Override
+	protected void putInMemory(Process p) {
+		
 	}
 
 }
