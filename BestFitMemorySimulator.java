@@ -1,10 +1,24 @@
 
-
+/**
+ * Memory strategy that puts a process in memory at a location which best
+ * fits the amount of memory requested.
+ */
 public class BestFitMemorySimulator extends MemorySimulatorBase {
+	
+	/**
+	 * Default constructor that initializes the sim using an input file
+	 * @param fileName The input file
+	 */
 	public BestFitMemorySimulator(String filename) {
 		super(filename);
 	}
 
+	/**
+	 * Return the index of the first position of the next available slot
+	 * in memory
+	 * @param slotSize The size of the requested slot
+	 * @return The index of the first position of an available requested block
+	 */
 	public int getNextSlot(int slotSize) {
 		//TODO
 		/* This one is Noah's problem */

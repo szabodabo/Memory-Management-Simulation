@@ -1,10 +1,24 @@
 
+/**
+ * Memory strategy that puts a process in memory at the
+ * first location available in memory
+ */
 public class FirstFitMemorySimulator extends MemorySimulatorBase {
 
+	/**
+	 * Default constructor that initializes the sim using an input file
+	 * @param fileName The input file
+	 */
 	public FirstFitMemorySimulator(String fileName) {
 		super(fileName);
 	}
 
+	/**
+	 * Return the index of the first position of the next available slot
+	 * in memory
+	 * @param slotSize The size of the requested slot
+	 * @return The index of the first position of an available requested block
+	 */
 	@Override
 	public int getNextSlot(int slotSize) {
 		int blocksize = 0;

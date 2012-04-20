@@ -2,9 +2,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Contains functionality for reading and interpreting input files
+ */
 public class InputFileParser {
 	private static final boolean INPUT_DEBUG = true;
 
+	/**
+	 * Parse an input file into a list of processes contained therein
+	 * @param fileName The file to parse
+	 * @return A list of processes contained therein
+	 */
 	public static ArrayList<Process> parseInputFile(String fileName) {
 		ArrayList<Process> processList = new ArrayList<Process>();
 		try {
@@ -25,6 +33,11 @@ public class InputFileParser {
 		return processList;
 	}
 
+	/**
+	 * Parse an input line into a sublist of Processes
+	 * @param line The line to parse
+	 * @return A list of Process objects that can be parsed from the line
+	 */
 	private static ArrayList<Process> parseInputLine(String line) {
 		ArrayList<Process> processesToReturn = new ArrayList<Process>();
 		debugPrint("Got line " + line);
@@ -57,12 +70,22 @@ public class InputFileParser {
 		return processesToReturn;
 	}
 
+	/**
+	 * Print a string if a debug flag is set.
+	 * Do not include a newline.
+	 * @param toPrint The string to print
+	 */
 	private static void debugPrint(String toPrint) {
 		if (INPUT_DEBUG == true) {
 			System.out.print(toPrint);
 		}
 	}
 
+	/**
+	 * Print a string if a debug flag is set.
+	 * Include a newline.
+	 * @param toPrint The string to print
+	 */
 	private static void debugPrintln(String toPrint) {
 		if (INPUT_DEBUG == true) {
 			System.out.println(toPrint);

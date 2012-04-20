@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * Main class sets up and runs the simulation,
+ * including managing user input and timestep control.
+ */
 public class Main {
 	public static void main( String[] args ) {
 		if (args.length != 2) {
