@@ -10,8 +10,8 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 	 * Default constructor that initializes the sim using an input file
 	 * @param fileName The input file
 	 */
-	public BestFitMemorySimulator(String filename) {
-		super(filename);
+	public BestFitMemorySimulator(String fileName) {
+		super(fileName);
 	}
 
 	/**
