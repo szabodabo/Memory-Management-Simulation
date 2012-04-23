@@ -1,4 +1,5 @@
 
+
 /**
  * Memory strategy that puts a process in memory at the
  * first location available in memory

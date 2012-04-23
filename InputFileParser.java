@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +7,7 @@ import java.util.Collections;
  * Contains functionality for reading and interpreting input files
  */
 public class InputFileParser {
-	private static final boolean INPUT_DEBUG = true;
+	private static final boolean INPUT_DEBUG = false;
 
 	/**
 	 * Parse an input file into a list of processes contained therein

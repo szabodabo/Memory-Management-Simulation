@@ -1,0 +1,36 @@
+==========================================================================
+Names:      Dakota Szabo [szabod], Noah Zimmt [zimmtn]
+Date:       23 April 2012
+Assignment: Operating Systems (CSCI-4210) Project #2 (Memory Simulator)
+==========================================================================
+
+Build Instructions: Makefile included
+
+Run Instructions:
+ USAGE: java Main <input-file> { noncontig | first | best | next | worst }
+
+Submitted Files:
+ - Main.java: 
+     Main entry point for simulator.
+ - Externals.java:
+     Contains commonly-used constants and functions
+ - InputFileParser.java: 
+     Reads in a .txt file and outputs a list of Processes
+ - Process.java: 
+     Models a process in memory
+ - MemorySimulatorBase.java: 
+     Contains functionality shared by all memory management strategies
+ - FirstFitMemorySimulator.java:
+     Employs a first-fit memory management strategy
+ - BestFitMemorySimulator.java
+     Employs a best-fit memory management strategy
+ - NextFitMemorySimulator.java
+     Employs a next-fit memory management strategy
+ - WorstFitMemorySimulator.java
+     Employs a worst-fit memory management strategy
+ - NonContiguousMemorySimulator.java
+     Employs a non-continguous memory allocation strategy
+ - input.txt
+     Sample input data
+ - Makefile
+     Project build script

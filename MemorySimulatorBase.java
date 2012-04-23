@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ public abstract class MemorySimulatorBase {
 	protected char[] main_memory;
 	protected ArrayList<Process> processes;
 	
-	public static final boolean MEMSIM_DEBUG = true;
+	public static final boolean MEMSIM_DEBUG = false;
 	
 	/**
 	 * Default constructor that takes an input file
@@ -138,14 +139,14 @@ public abstract class MemorySimulatorBase {
 	 * Print the current contents of memory
 	 */
 	public void printMemory() {
-		//TODO: Make like Goldilocks's Example
+		System.out.print("Memory at time " + CURRENT_TIME + ":");
 		for (int i = 0; i < main_memory.length; i++) {
 			if (i % 80 == 0) {
-				debugPrintln("");
+				System.out.println("");
 			}
-			debugPrint( main_memory[i] + "" );
+			System.out.print( main_memory[i] + "" );
 		}
-		debugPrintln("");
+		System.out.println("");
 	}
 	
 	/**
