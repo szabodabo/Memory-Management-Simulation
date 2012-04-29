@@ -1,19 +1,21 @@
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Starter code for a memory simulator.
  * Simulator strategies extend this abstract class.
  */
 public abstract class MemorySimulatorBase {
-	public static final char FREE_MEMORY = '.';
-	public static final char RESERVED_MEMORY = '#';
-	public int CURRENT_TIME = -1;
+	protected static final char FREE_MEMORY = '.';
+	protected static final char RESERVED_MEMORY = '#';
+	protected int CURRENT_TIME = -1;
 	
 	protected char[] main_memory;
 	protected ArrayList<Process> processes;
 	
-	public static final boolean MEMSIM_DEBUG = false;
+	protected static final boolean MEMSIM_DEBUG = false;
 	
 	/**
 	 * Default constructor that takes an input file
@@ -43,6 +45,7 @@ public abstract class MemorySimulatorBase {
 	/**
 	 * Move the simulator one virtual time step into the future,
 	 * handling processes leaving and entering the system.
+	 * NOTE: Not used now that the project specifications have changed.
 	 */
 	public void timeStep() {
 		CURRENT_TIME++;
@@ -71,6 +74,43 @@ public abstract class MemorySimulatorBase {
 			if (p.getStartTime() == CURRENT_TIME) {
 				debugPrintln("Adding process " + p.getPid());
 				putInMemory(p);
+			}
+		}
+	}
+
+	/**
+	 * Move the simulator into the future
+	 * @param t The time to which to move the simulator
+	 */
+	public void timeStepUntil(int t) {
+		while (CURRENT_TIME < t) {
+			CURRENT_TIME++;
+			while (!eventOccursAt(CURRENT_TIME) && CURRENT_TIME < t) {
+				debugPrintln("Fast-forwarding past boring time " + CURRENT_TIME);
+				CURRENT_TIME++;
+			}
+			
+			debugPrintln("=========== TIME IS NOW " + CURRENT_TIME + " ============");
+			
+			//Processes exit the system
+			ArrayList<Process> toRemove = new ArrayList<Process>();
+			for (Process p : processes) {
+				if (p.getEndTime() == CURRENT_TIME) {
+					debugPrintln("Removing process " + p.getPid());
+					removeFromMemory(p);
+					toRemove.add(p);
+				}
+			} 
+			for (Process p : toRemove) {
+				processes.remove(p);
+			}
+			
+			//Processes enter the system
+			for (Process p : processes) {
+				if (p.getStartTime() == CURRENT_TIME) {
+					debugPrintln("Adding process " + p.getPid());
+					putInMemory(p);
+				}
 			}
 		}
 	}
@@ -151,10 +191,13 @@ public abstract class MemorySimulatorBase {
 	
 	/**
 	 * Attempt to defragment main memory
-	 * TODO: Must return statistics
 	 */
 	private void defragment() {
-		debugPrintln("Defrag started!");
+		HashMap<Character, Integer> processesMoved = new HashMap<Character, Integer>();
+		DecimalFormat f = new DecimalFormat("##.00");
+		
+		System.out.println("Performing defragmentation...");
+		
 		int destination = 0;
 		for (int i = 0; i < main_memory.length; i++) {
 			if (main_memory[i] != FREE_MEMORY 
@@ -162,8 +205,18 @@ public abstract class MemorySimulatorBase {
 					&& i != destination ) {
 				main_memory[destination] = main_memory[i];
 				destination++;
+				processesMoved.put(main_memory[i], null);
 			}
 		}
+		int numMoved = processesMoved.size();
+		int freeBlockSize = main_memory.length - destination;
+		double percentage = freeBlockSize / main_memory.length;
+		
+		System.out.println("Defragmentation completed.");
+		System.out.println("Relocated " + numMoved + " processes " +
+				"to create a free memory block of " + freeBlockSize + " units " +
+				"(" + f.format(percentage) + "% of total memory).");
+		
 	}
 	
 	/**

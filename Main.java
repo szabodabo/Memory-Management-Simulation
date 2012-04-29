@@ -14,7 +14,7 @@ public class Main {
 		String simName = args[1].trim();
 		MemorySimulatorBase sim = null;
 		Scanner scanner = new Scanner(System.in);
-		String userInput = "";
+		int userInput;
 		
 		if ( simName.equals("first") ) {
 			sim = new FirstFitMemorySimulator( args[0] );
@@ -31,21 +31,13 @@ public class Main {
 		}
 		
 		while (sim.processesRemaining() > 0) {
-			userInput = "";
-			while (!(userInput.equals("c") || userInput.equals("q"))) {
-				System.out.print("memsim> ");
-				userInput = scanner.next();
-				if (userInput.equals("c")) {
-					//Continue the simulation
-					break;
-				} else if (userInput.equals("q")) {
-					System.exit(0);
-				} else {
-					System.out.println("Enter 'c' to continue or 'q' to quit.");
-				}
-			}
-			
-			sim.timeStep();
+			userInput = 0;
+			System.out.print("memsim> ");
+			userInput = scanner.nextInt();
+			if (userInput == 0) {
+				System.exit(0);
+			}		
+			sim.timeStepUntil(userInput);
 			sim.printMemory();
 		}
 		
