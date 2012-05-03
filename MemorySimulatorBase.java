@@ -198,25 +198,25 @@ public abstract class MemorySimulatorBase {
 		
 		System.out.println("Performing defragmentation...");
 		
-		int destination = 0;
+		int destination = 80;
 		for (int i = 0; i < main_memory.length; i++) {
 			if (main_memory[i] != FREE_MEMORY 
 					&& main_memory[i] != RESERVED_MEMORY
 					&& i != destination ) {
 				main_memory[destination] = main_memory[i];
+				main_memory[i] = FREE_MEMORY; 
 				destination++;
 				processesMoved.put(main_memory[i], null);
 			}
 		}
 		int numMoved = processesMoved.size();
 		int freeBlockSize = main_memory.length - destination;
-		double percentage = freeBlockSize / main_memory.length;
-		
+		double percentage = (double)freeBlockSize / (double)main_memory.length;
+	
 		System.out.println("Defragmentation completed.");
 		System.out.println("Relocated " + numMoved + " processes " +
 				"to create a free memory block of " + freeBlockSize + " units " +
-				"(" + f.format(percentage) + "% of total memory).");
-		
+				"(" + f.format(percentage * 100) + "% of total memory).");
 	}
 	
 	/**

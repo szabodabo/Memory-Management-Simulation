@@ -30,6 +30,9 @@ public class Main {
 			Externals.invalidUsageExit();
 		}
 		
+		sim.timeStepUntil(0);
+		sim.printMemory();
+	
 		while (sim.processesRemaining() > 0) {
 			userInput = 0;
 			System.out.print("memsim> ");
