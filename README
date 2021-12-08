@@ -1,13 +1,17 @@
-==========================================================================
-Names:      Dakota Szabo [szabod], Noah Zimmt [zimmtn]
-Date:       29 April 2012
-Assignment: Operating Systems (CSCI-4210) Project #2 (Memory Simulator)
-==========================================================================
+COSC439-001 Operating Systems Final Project
 
+Memory Management Simulation
+----------------------------------------------------
+Names: Milan Black, Andrew Fleming, Sydney Pearce
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Build Instructions: Makefile included
 
 Run Instructions:
  USAGE: java Main <input-file> { noncontig | first | best | next | worst }
+ 
+ ** pick one option from {}
+ ** Ex: java Main input.txt first
+ ** Run from command line while in project directory
 
 Submitted Files:
  - Main.java: 
