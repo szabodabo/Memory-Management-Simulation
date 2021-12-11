@@ -10,7 +10,8 @@ public class Externals {
 	 * Prints error message and exits.
 	 */
 	public static void invalidUsageExit() {
-		System.err.println("USAGE: java Main <input-file> { noncontig | first | best | next | worst }");
+		//updated for new UI
+		System.err.println("USAGE: java Main <input-file>");
 		System.exit(1);
 	}
 	
