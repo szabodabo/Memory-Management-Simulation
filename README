@@ -7,11 +7,10 @@ Names: Milan Black, Andrew Fleming, Sydney Pearce
 Build Instructions: Makefile included
 
 Run Instructions:
- USAGE: java Main <input-file> { noncontig | first | best | next | worst }
+ java Main <input-file>
  
- ** pick one option from {}
- ** Ex: java Main input.txt first
- ** Run from command line while in project directory
+ --> You will be prompted to select your memory simulator
+ --> Choose from the options presented
 
 Submitted Files:
  - Main.java: 
