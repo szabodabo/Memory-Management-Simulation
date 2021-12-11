@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 /**
@@ -7,24 +6,33 @@ import java.util.Scanner;
  */
 public class Main {
 	public static void main( String[] args ) {
-		if (args.length != 2) {
+		if (args.length != 1) {
 			Externals.invalidUsageExit();
 		}
 		
-		String simName = args[1].trim();
+		//String simName = args[1].trim();
 		MemorySimulatorBase sim = null;
+		System.out.println("============================================");
+		System.out.println("Choose You Memory Simulator:");
+		System.out.println("============================================");
+		System.out.println("1: First Fit" +
+		"\n2: Best Fit" +
+		"\n3: Next Fit" +
+		"\n4: Worst Fit" +
+		"\n5: Non Contiguous");
 		Scanner scanner = new Scanner(System.in);
-		int userInput;
+		int userInput = scanner.nextInt();
+
 		
-		if ( simName.equals("first") ) {
+		if ( userInput == 1 ) {
 			sim = new FirstFitMemorySimulator( args[0] );
-		} else if ( simName.equals("best") ) {
+		} else if ( userInput == 2 ) {
 			sim = new BestFitMemorySimulator( args[0] );
-		} else if ( simName.equals("next") ) {
+		} else if ( userInput == 3 ) {
 			sim = new NextFitMemorySimulator( args[0] );
-		} else if ( simName.equals("worst") ) {
+		} else if ( userInput == 4 ) {
 			sim = new WorstFitMemorySimulator( args[0] );
-		} else if ( simName.equals("noncontig") ) {
+		} else if ( userInput == 5 ) {
 			sim = new NonContiguousMemorySimulator( args[0] );
 		} else {
 			Externals.invalidUsageExit();
@@ -32,7 +40,7 @@ public class Main {
 		
 		sim.timeStepUntil(0);
 		sim.printMemory();
-	
+
 		while (sim.processesRemaining() > 0) {
 			userInput = 0;
 			System.out.print("memsim> ");
