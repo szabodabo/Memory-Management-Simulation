@@ -10,10 +10,9 @@ public class Main {
 			Externals.invalidUsageExit();
 		}
 		
-		//String simName = args[1].trim();
 		MemorySimulatorBase sim = null;
 		System.out.println("============================================");
-		System.out.println("Choose You Memory Simulator:");
+		System.out.println("Choose (1, 2, 3, 4, or 5) To Pick A Memory Simulator:");
 		System.out.println("============================================");
 		System.out.println("1: First Fit" +
 		"\n2: Best Fit" +
@@ -22,7 +21,6 @@ public class Main {
 		"\n5: Non Contiguous");
 		Scanner scanner = new Scanner(System.in);
 		int userInput = scanner.nextInt();
-
 		
 		if ( userInput == 1 ) {
 			sim = new FirstFitMemorySimulator( args[0] );
