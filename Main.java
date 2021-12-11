@@ -11,9 +11,9 @@ public class Main {
 		}
 		
 		MemorySimulatorBase sim = null;
-		System.out.println("============================================");
+		System.out.println("=====================================================");
 		System.out.println("Choose (1, 2, 3, 4, or 5) To Pick A Memory Simulator:");
-		System.out.println("============================================");
+		System.out.println("=====================================================");
 		System.out.println("1: First Fit" +
 		"\n2: Best Fit" +
 		"\n3: Next Fit" +
