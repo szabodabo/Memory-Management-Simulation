@@ -9,8 +9,6 @@ import java.util.Collections;
  */
 
 public class InputFileParser {
-	//this j tells it when to print to console 
-	private static final boolean INPUT_DEBUG = false;
 
 	/**
 	 * Parse an input file into a list of processes contained therein
@@ -54,12 +52,8 @@ public class InputFileParser {
 	private static ArrayList<Process> parseInputLine(String line) {
 		//what will be returned later... being added upon 
 		ArrayList<Process> processesToReturn = new ArrayList<Process>();
-		//simply prints output 
-		debugPrint("Got line " + line);
 		//\\s means display \s
 		String[] lineParts = line.split("\\s");
-		//the ln j means add the ln 
-		debugPrintln(" (" + lineParts.length + ")");
 
 		//Need at least 4 items: pid, mem, and an entry/exit pair
 		//Also, must be an even number of items (pairs of times only)
@@ -96,27 +90,5 @@ public class InputFileParser {
 		}
 		//return the list made at the top 
 		return processesToReturn;
-	}
-
-	/**
-	 * Print a string if a debug flag is set.
-	 * Do not include a newline.
-	 * @param toPrint The string to print
-	 */
-	private static void debugPrint(String toPrint) {
-		if (INPUT_DEBUG == true) {
-			System.out.print(toPrint);
-		}
-	}
-
-	/**
-	 * Print a string if a debug flag is set.
-	 * Include a newline.
-	 * @param toPrint The string to print
-	 */
-	private static void debugPrintln(String toPrint) {
-		if (INPUT_DEBUG == true) {
-			System.out.println(toPrint);
-		}
 	}
 }

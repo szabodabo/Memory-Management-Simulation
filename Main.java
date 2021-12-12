@@ -6,9 +6,6 @@ import java.util.Scanner;
  */
 public class Main {
 	public static void main( String[] args ) {
-		// if (args.length != 1) {
-		// 	Externals.invalidUsageExit();
-		// }
 		
 		MemorySimulatorBase sim = null;
 		System.out.println("=====================================================");
@@ -35,7 +32,7 @@ public class Main {
 		} else if (userInput == 6){
 			sim = new BuddySortSimulator("input2.txt");
 		} else {
-			Externals.invalidUsageExit();
+			System.out.println("Invalid option, exiting...");
 		}
 		
 		if(userInput != 6){

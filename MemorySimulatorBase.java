@@ -3,8 +3,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.sound.sampled.SourceDataLine;
-
 /**
  * Starter code for a memory simulator.
  * Simulator strategies extend this abstract class.
@@ -39,18 +37,13 @@ public abstract class MemorySimulatorBase {
 		//...it includes errors for invalid usage and out of memory
 		//...also has main memory size 
 		//so main_memory is j a char array of size 2400 
-		main_memory = new char[ Externals.MAIN_MEMORY_SIZE ];
+		main_memory = new char[ 640 ];
 		
 		//deals with the file we put 
 		//inputfileparser returns all the stuff in the input file in 
 		//a format that this program uses, aka proccesses 
 		processes = InputFileParser.parseInputFile( fileName );
 		initializeMainMemory();
-		for (Process p : processes) {
-			debugPrintln("Process " + p.getPid() + " (size " + p.getSize() + ")");
-			debugPrintln("  Start Time: " + p.getStartTime());
-			debugPrintln("  End Time: " + p.getEndTime());
-		}
 	}
 	
 	/**
@@ -71,17 +64,13 @@ public abstract class MemorySimulatorBase {
 	public void timeStep() {
 		CURRENT_TIME++;
 		while (!eventOccursAt(CURRENT_TIME)) {
-			debugPrintln("Fast-forwarding past boring time " + CURRENT_TIME);
 			CURRENT_TIME++;
 		}
-		
-		debugPrintln("=========== TIME IS NOW " + CURRENT_TIME + " ============");
 		
 		//Processes exit the system
 		ArrayList<Process> toRemove = new ArrayList<Process>();
 		for (Process p : processes) {
 			if (p.getEndTime() == CURRENT_TIME) {
-				debugPrintln("Removing process " + p.getPid());
 				removeFromMemory(p);
 				toRemove.add(p);
 			}
@@ -93,7 +82,6 @@ public abstract class MemorySimulatorBase {
 		//Processes enter the system
 		for (Process p : processes) {
 			if (p.getStartTime() == CURRENT_TIME) {
-				debugPrintln("Adding process " + p.getPid());
 				putInMemory(p);
 			}
 		}
@@ -129,17 +117,13 @@ public abstract class MemorySimulatorBase {
 		while (CURRENT_TIME < t) {
 			CURRENT_TIME++;
 			while (!eventOccursAt(CURRENT_TIME) && CURRENT_TIME < t) {
-				debugPrintln("Fast-forwarding past boring time " + CURRENT_TIME);
 				CURRENT_TIME++;
 			} 
-			
-			debugPrintln("=========== TIME IS NOW " + CURRENT_TIME + " ============");
 			
 			//Processes exit the system
 			ArrayList<Process> toRemove = new ArrayList<Process>();
 			for (Process p : processes) {
 				if (p.getEndTime() == CURRENT_TIME) {
-					debugPrintln("Removing process " + p.getPid());
 					removeFromMemory(p);
 					toRemove.add(p);
 				}
@@ -151,7 +135,6 @@ public abstract class MemorySimulatorBase {
 			//Processes enter the system
 			for (Process p : processes) {
 				if (p.getStartTime() == CURRENT_TIME) {
-					debugPrintln("Adding process " + p.getPid());
 					putInMemory(p);
 				}
 			}
@@ -183,11 +166,10 @@ public abstract class MemorySimulatorBase {
 			defragment();
 			targetSlot = getNextSlot(p.getSize());
 			if (targetSlot == -1) {
-				Externals.outOfMemoryExit();
+				System.out.println("No more memory");
 			}
 		}
-		debugPrintln("Got a target slot of " + targetSlot + " for pid " + p.getPid());
-		//If we get here, we know that there's an open chunk
+		
 		for (int i = 0; i < p.getSize(); i++) {
 			main_memory[i+targetSlot] = p.getPid();
 		}
@@ -268,7 +250,6 @@ public abstract class MemorySimulatorBase {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	//begin tracking for buddy algorithm steps
 	//calculates number of blocks needed
 	//fills array list with empty slots for those blocks
@@ -278,7 +259,7 @@ public abstract class MemorySimulatorBase {
 		for(int i = 0; i <= x; i++){
 			blocks[i] = new ArrayList<>();
 		}
-		blocks[x].add(new Block(0, 2399)); 
+		blocks[x].add(new Block(80, 639)); 
 	}
 
 	/**
@@ -342,28 +323,6 @@ public abstract class MemorySimulatorBase {
 		System.out.println("Relocated " + numMoved + " processes " +
 				"to create a free memory block of " + freeBlockSize + " units " +
 				"(" + f.format(percentage * 100) + "% of total memory).");
-	}
-	
-	/**
-	 * Print a string if a debug flag is set.
-	 * Do not include a newline.
-	 * @param toPrint The string to print
-	 */
-	private static void debugPrint(String toPrint) {
-		if (MEMSIM_DEBUG == true) {
-			System.out.print(toPrint);
-		}
-	}
-
-	/**
-	 * Print a string if a debug flag is set.
-	 * Include a newline.
-	 * @param toPrint The string to print
-	 */
-	private static void debugPrintln(String toPrint) {
-		if (MEMSIM_DEBUG == true) {
-			System.out.println(toPrint);
-		}
 	}
 	
 	/**

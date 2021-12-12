@@ -39,7 +39,7 @@ public class NonContiguousMemorySimulator extends MemorySimulatorBase {
 			}
 		}
 		if (remainingToPlace > 0) {
-			Externals.outOfMemoryExit();
+			System.out.println("No more memory");
 		}
 	}
 
