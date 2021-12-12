@@ -32,24 +32,35 @@ public class Main {
 			sim = new WorstFitMemorySimulator( args[0] );
 		} else if ( userInput == 5 ) {
 			sim = new NonContiguousMemorySimulator( args[0] );
+		} else if (userInput == 6){
+			sim = new BuddySortSimulator(args[0]);
 		} else {
 			Externals.invalidUsageExit();
 		}
 		
-		sim.timeStepUntil(0);
-		sim.printMemory();
 
-		while (sim.processesRemaining() > 0) {
-			userInput = 0;
-			System.out.print("memsim> ");
-			userInput = scanner.nextInt();
-			if (userInput == 0) {
-				System.exit(0);
-			}		
-			sim.timeStepUntil(userInput);
+		if(userInput != 6){
+
+			
+			sim.timeStepUntil(0);
 			sim.printMemory();
+
+			while (sim.processesRemaining() > 0) {
+				userInput = 0;
+				System.out.print("memsim> ");
+				userInput = scanner.nextInt();
+				if (userInput == 0) {
+					System.exit(0);
+				}		
+				sim.timeStepUntil(userInput);
+				sim.printMemory();
+			}
+			
+			System.out.println("No more events to process... exiting!");
 		}
-		
-		System.out.println("No more events to process... exiting!");
+		else{
+			sim.buddyWalk();
+			System.out.println("Done");
+		}
 	}
 }

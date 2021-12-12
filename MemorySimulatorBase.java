@@ -3,6 +3,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.sound.sampled.SourceDataLine;
+
 /**
  * Starter code for a memory simulator.
  * Simulator strategies extend this abstract class.
@@ -22,6 +24,9 @@ public abstract class MemorySimulatorBase {
 	
 	//used later to tell program to print output
 	protected static final boolean MEMSIM_DEBUG = false;
+
+	//Array to track buddy system nodes
+	ArrayList<Block> blocks[];
 	
 	/**
 	 * Default constructor that takes an input file
@@ -94,6 +99,27 @@ public abstract class MemorySimulatorBase {
 		}
 	}
 
+	public void buddyWalk(){
+		for (Process P: processes){
+			putInMemoryBuddy(P);
+			printMemory();
+		}
+	}
+
+
+	//class to create objects for buddy algorithm
+	class Block {
+		int begin;
+        int end;
+
+        Block(int b, int e){
+            begin = b;
+            end = e;
+        }
+	}
+
+	
+
 	/**
 	 * Move the simulator into the future
 	 * @param t The time to which to move the simulator
@@ -165,6 +191,51 @@ public abstract class MemorySimulatorBase {
 			main_memory[i+targetSlot] = p.getPid();
 		}
 	}
+
+	protected void putInMemoryBuddy(Process p){
+		int x = blocking(p.getSize());
+		int mark;
+		Block temp = null;
+
+		if(blocks[x].size() > 0){
+			temp = (Block)blocks[x].remove(0);
+			for(int i = temp.begin; i < temp.end; i++){
+				main_memory[i] = p.getPid();
+			}
+			return;
+		}
+
+		for (mark = x; mark < blocks.length; mark++){
+			if(blocks[mark].size() == 0){
+				continue;
+			}
+			break;
+		}
+
+		if(mark == blocks.length){
+			System.out.println("No available memory, process exiting");
+			return;
+		}
+
+		temp = (Block)blocks[mark].remove(0);
+		mark = mark - 1;
+
+		while (mark >= x){
+			
+			Block a = new Block(temp.begin, temp.begin + (temp.end - temp.begin) / 2);
+			Block b = new Block(temp.begin + (temp.end - temp.begin + 1) / 2, temp.end);
+
+			blocks[mark].add(a);
+			blocks[mark].add(b);
+
+			temp = (Block)blocks[mark].remove(0);
+		}
+
+		for(int i = temp.begin; i < temp.end; i++){
+			main_memory[i] = p.getPid();
+		}
+		System.out.println("Memory successfully allocated");
+	}
 	
 	/**
 	 * Take a process out of memory
@@ -193,6 +264,18 @@ public abstract class MemorySimulatorBase {
 			//free memory is the .
 			main_memory[i] = FREE_MEMORY;
 		}
+	}
+
+	//begin tracking for buddy algorithm steps
+	//calculates number of blocks needed
+	//fills array list with empty slots for those blocks
+	public void initializeBuddySystem(){
+		int x = blocking(main_memory.length);
+		blocks = new ArrayList[x + 1];
+		for(int i = 0; i <= x; i++){
+			blocks[i] = new ArrayList<>();
+		}
+		blocks[x].add(new Block(0, main_memory.length - 1)); 
 	}
 
 	/**
@@ -286,6 +369,10 @@ public abstract class MemorySimulatorBase {
 	 */
 	public int processesRemaining() {
 		return processes.size();
+	}
+
+	public int blocking(int x){
+		return (int)Math.ceil(Math.log(x)/Math.log(2));
 	}
 	
 }
