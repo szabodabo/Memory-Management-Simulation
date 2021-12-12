@@ -21,6 +21,7 @@ public class NextFitMemorySimulator extends MemorySimulatorBase {
 	 * @return The index of the first position of an available requested block
 	 */
 	@Override
+	// 
 	protected int getNextSlot(int slotSize) {
 		int spaceAvailable = 0;
 		for (int i = main_memory.length-1; i >=0; i--) {

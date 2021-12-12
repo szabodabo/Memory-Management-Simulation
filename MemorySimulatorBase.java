@@ -8,21 +8,37 @@ import java.util.HashMap;
  * Simulator strategies extend this abstract class.
  */
 public abstract class MemorySimulatorBase {
+	//visual output of free and reserved memory
 	protected static final char FREE_MEMORY = '.';
 	protected static final char RESERVED_MEMORY = '#';
+	//-1 is the current start time... i think 
 	protected int CURRENT_TIME = -1;
 	
+	//an array of .'s and #'s
 	protected char[] main_memory;
+
+	//an object instance of a type. thats it 
 	protected ArrayList<Process> processes;
 	
+	//used later to tell program to print output
 	protected static final boolean MEMSIM_DEBUG = false;
 	
 	/**
 	 * Default constructor that takes an input file
 	 * @param fileName
 	 */
+
 	public MemorySimulatorBase(String fileName) {
+		//the array of characters . and #
+		//Externals just stores data for us 
+		//...it includes errors for invalid usage and out of memory
+		//...also has main memory size 
+		//so main_memory is j a char array of size 2400 
 		main_memory = new char[ Externals.MAIN_MEMORY_SIZE ];
+		
+		//deals with the file we put 
+		//inputfileparser returns all the stuff in the input file in 
+		//a format that this program uses, aka proccesses 
 		processes = InputFileParser.parseInputFile( fileName );
 		initializeMainMemory();
 		for (Process p : processes) {
@@ -88,7 +104,7 @@ public abstract class MemorySimulatorBase {
 			while (!eventOccursAt(CURRENT_TIME) && CURRENT_TIME < t) {
 				debugPrintln("Fast-forwarding past boring time " + CURRENT_TIME);
 				CURRENT_TIME++;
-			}
+			} 
 			
 			debugPrintln("=========== TIME IS NOW " + CURRENT_TIME + " ============");
 			
@@ -167,10 +183,14 @@ public abstract class MemorySimulatorBase {
 	 * free memory 
 	 */
 	private void initializeMainMemory() {
+		//main memory from externals file... 2400
 		for (int i = 0; i < 80 && i < main_memory.length; i++) {
+			//reserved memory is j the # 
 			main_memory[i] = RESERVED_MEMORY;
 		}
+		//by default the first 80 spaces of the memory are j reserved 
 		for (int i = 80; i < main_memory.length; i++) {
+			//free memory is the .
 			main_memory[i] = FREE_MEMORY;
 		}
 	}
@@ -178,9 +198,14 @@ public abstract class MemorySimulatorBase {
 	/**
 	 * Print the current contents of memory
 	 */
+	//print out how all the memory is at a current state of time 
+	//prints out all the memory at a given point
 	public void printMemory() {
+		//prompts the user for the time they want to display 
 		System.out.print("Memory at time " + CURRENT_TIME + ":");
+		//just prints the memory 
 		for (int i = 0; i < main_memory.length; i++) {
+			//doesnt display more than 80 characters per line 
 			if (i % 80 == 0) {
 				System.out.println("");
 			}
@@ -192,20 +217,34 @@ public abstract class MemorySimulatorBase {
 	/**
 	 * Attempt to defragment main memory
 	 */
-	private void defragment() {
+	 //defragmenting cleans up empty spaces 
+	private void defragment() { 
+		//hashmap is a key-value pair 
+		//this hashmap is keeping track of where the data moves to 
 		HashMap<Character, Integer> processesMoved = new HashMap<Character, Integer>();
+		//formats a number 2 digits and 2 variables 
 		DecimalFormat f = new DecimalFormat("##.00");
 		
 		System.out.println("Performing defragmentation...");
 		
+		//80 is where the free memory starts 
+		//EXPAND THE RESERVED MEMORY????????
 		int destination = 80;
+
+		//this is basically a sorting algorithm 
 		for (int i = 0; i < main_memory.length; i++) {
+			//free memory is the . 
 			if (main_memory[i] != FREE_MEMORY 
+					// not a #
 					&& main_memory[i] != RESERVED_MEMORY
+					//not the destination 80
 					&& i != destination ) {
+						//destination incremembents 
 				main_memory[destination] = main_memory[i];
 				main_memory[i] = FREE_MEMORY; 
 				destination++;
+				//put inserts into the hashmap 
+				//
 				processesMoved.put(main_memory[i], null);
 			}
 		}

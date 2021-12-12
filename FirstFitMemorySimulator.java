@@ -21,6 +21,9 @@ public class FirstFitMemorySimulator extends MemorySimulatorBase {
 	 * @return The index of the first position of an available requested block
 	 */
 	@Override
+	//slotsize is the process's size 
+	//looks for contiguous memory that fits 
+	//if it fits then put it in 
 	public int getNextSlot(int slotSize) {
 		int blocksize = 0;
 		

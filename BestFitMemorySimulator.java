@@ -13,7 +13,6 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 	public BestFitMemorySimulator(String fileName) {
 		super(fileName);
 	}
-
 	/**
 	 * Return the index of the first position of the next available slot
 	 * in memory
@@ -21,7 +20,6 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 	 * @return The index of the first position of an available requested block
 	 */
 	public int getNextSlot(int slotSize) {
-		
 		int best_start = -1;
 		int best_size = Integer.MAX_VALUE;
 		int current_start = -1;
@@ -35,11 +33,16 @@ public class BestFitMemorySimulator extends MemorySimulatorBase {
 				current_size++;
 			} else {
 				//We just hit in-use memory
-				
 				//Only change placement info if we're coming off of an empty block
 				if (current_size > 0) {
+					
+					/*
+					current size = 10
+					best_size = 
+					slot_size = 20
+					*/				
 					if (current_size < best_size && current_size >= slotSize) {
-						best_start = current_start;
+						best_start = current_start; //index 
 						best_size = current_size;
 					}
 					current_size = 0;

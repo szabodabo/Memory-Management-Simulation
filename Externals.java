@@ -2,7 +2,9 @@
 /**
  * A place for our constants, macros, and helper functions
  */
+ //found in MemorySimulatorBase
 public class Externals {
+	//
 	public static final int MAIN_MEMORY_SIZE = 2400;
 
 	/**
