@@ -100,6 +100,7 @@ public abstract class MemorySimulatorBase {
 	}
 
 	public void buddyWalk(){
+		initializeBuddySystem();
 		for (Process P: processes){
 			putInMemoryBuddy(P);
 			printMemory();
@@ -192,7 +193,7 @@ public abstract class MemorySimulatorBase {
 		}
 	}
 
-	protected void putInMemoryBuddy(Process p){
+	public void putInMemoryBuddy(Process p){
 		int x = blocking(p.getSize());
 		int mark;
 		Block temp = null;
@@ -229,6 +230,7 @@ public abstract class MemorySimulatorBase {
 			blocks[mark].add(b);
 
 			temp = (Block)blocks[mark].remove(0);
+			mark--;
 		}
 
 		for(int i = temp.begin; i < temp.end; i++){
@@ -266,16 +268,17 @@ public abstract class MemorySimulatorBase {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	//begin tracking for buddy algorithm steps
 	//calculates number of blocks needed
 	//fills array list with empty slots for those blocks
-	public void initializeBuddySystem(){
+	private void initializeBuddySystem(){
 		int x = blocking(main_memory.length);
 		blocks = new ArrayList[x + 1];
 		for(int i = 0; i <= x; i++){
 			blocks[i] = new ArrayList<>();
 		}
-		blocks[x].add(new Block(0, main_memory.length - 1)); 
+		blocks[x].add(new Block(0, 2399)); 
 	}
 
 	/**

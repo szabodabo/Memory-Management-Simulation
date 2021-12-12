@@ -6,9 +6,9 @@ import java.util.Scanner;
  */
 public class Main {
 	public static void main( String[] args ) {
-		if (args.length != 1) {
-			Externals.invalidUsageExit();
-		}
+		// if (args.length != 1) {
+		// 	Externals.invalidUsageExit();
+		// }
 		
 		MemorySimulatorBase sim = null;
 		System.out.println("=====================================================");
@@ -23,7 +23,7 @@ public class Main {
 		int userInput = scanner.nextInt();
 		
 		if ( userInput == 1 ) {
-			sim = new FirstFitMemorySimulator( args[0] );
+			sim = new FirstFitMemorySimulator( "input.txt" );
 		} else if ( userInput == 2 ) {
 			sim = new BestFitMemorySimulator( args[0] );
 		} else if ( userInput == 3 ) {
@@ -33,15 +33,13 @@ public class Main {
 		} else if ( userInput == 5 ) {
 			sim = new NonContiguousMemorySimulator( args[0] );
 		} else if (userInput == 6){
-			sim = new BuddySortSimulator(args[0]);
+			sim = new BuddySortSimulator("input2.txt");
 		} else {
 			Externals.invalidUsageExit();
 		}
 		
-
 		if(userInput != 6){
 
-			
 			sim.timeStepUntil(0);
 			sim.printMemory();
 

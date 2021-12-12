@@ -5,6 +5,3 @@ C 58 0 950 1100 1200
 D 86 0 650 1350 1800
 E 14 0 1400
 F 24 100 480 550 975
-
-//first letter PID, size of process , start time , end time , each pair
-// diff start end time
